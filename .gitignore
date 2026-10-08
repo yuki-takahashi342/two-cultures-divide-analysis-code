@@ -1,0 +1,14 @@
+# Private respondent-level data. Keep this directory local.
+/data/
+
+# RStudio session state can contain data and local paths.
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+Rplots.pdf
+.DS_Store
+
+# Generated manuscript and supplemental outputs are reproducible locally.
+/output/
+/PUS_Supplemental_Code/results/
