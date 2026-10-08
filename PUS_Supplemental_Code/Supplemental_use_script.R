@@ -93,4 +93,6 @@ meta<-c(paste("R",getRversion()),paste("Source file",basename(input)),paste("Sou
 writeLines(meta,file.path(out,"run_information.txt"))
 cit<-unlist(lapply(c("psych","poLCA","nnet","marginaleffects"),function(p)c(p,capture.output(print(citation(p),style="text")),capture.output(toBibtex(citation(p))))))
 writeLines(cit,file.path(out,"software_citations.txt"))
+source(file.path(script_dir, "Plot_supplement.R"))
+write_supplement_figures(out, fa$data)
 message("Supplemental outputs written to ",out)

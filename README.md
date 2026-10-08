@@ -1,11 +1,11 @@
 # Public perceptions of academic disciplines in Japan
 
-R code to reproduce manuscript Table 1 and Figures 1–3, plus the supplemental analyses. Respondent-level data are private and are not included in Git. The existing folder layout is retained.
+R code to reproduce manuscript Table 1 and Figures 1–3, plus the supplemental analyses. Respondent-level data are private and are not included in Git.
 
 ## Quick start in RStudio
 
 1.  Open `PUS_repository.Rproj`.
-2.  Place the authorized survey CSV at `data/data.csv` (already present in the local working copy).
+2.  Place the authorized survey CSV at `data/data.csv`.
 3.  Install the required packages once if needed:
 
 ``` r
@@ -46,7 +46,7 @@ Rscript run_analysis.R --input="/path/to/private-survey.csv" --output-dir="/path
 ## Manuscript outputs
 
 | Item | File |
-|------------------------------------|------------------------------------|
+|----|----|
 | Table 1: average marginal effects with SEs | `output/Table1_final.xlsx` |
 | Full estimates, 95% CIs, p values and definitions | `Estimates` and `Definitions` sheets in the same workbook |
 | Figure 1: observed scientificity distributions | `output/final_figures/Figure1.png` and `.pdf` |
@@ -55,7 +55,7 @@ Rscript run_analysis.R --input="/path/to/private-survey.csv" --output-dir="/path
 | Figure source summaries | `output/final_figures/*_observed_proportions.csv` |
 | Fit indices, factor loadings, class counts and software versions | `output/final_diagnostics/` |
 
-Figure 3 displays observed proportions within assigned classes. Supplemental Figure S1 displays model-estimated conditional response probabilities. Five classes are retained to match the manuscript; the code does not choose a class count automatically. The analysis uses no sampling weights and no extra Q7 item 4 screening. Model-based regression uncertainty treats factor scores and class assignments as fixed.
+Figure 3 displays observed proportions within assigned classes. Supplemental Figure S1 displays the parallel-analysis scree plot of the nine substantive Q7 items; Figure S2 displays model-estimated conditional response probabilities. Five classes are retained to match the manuscript; the code does not choose a class count automatically. The analysis uses no sampling weights and no extra Q7 item 4 screening. Model-based regression uncertainty treats factor scores and class assignments as fixed.
 
 ## Supplemental outputs
 
@@ -64,7 +64,7 @@ Rscript PUS_Supplemental_Code/Supplemental_use_script.R
 Rscript PUS_Supplemental_Code/Plot_supplement.R output/supplemental
 ```
 
-The tables are written to `output/supplemental/`; the second command creates `Figure_S1.png` there. The 100-start optimization check can take several minutes. RStudio can run the tables with `source("PUS_Supplemental_Code/Supplemental_use_script.R")`. The supplemental functions share the canonical implementation in `R_scripts/Final_use_script.R`; the older same-named file in `PUS_Supplemental_Code/` forwards to it.
+The first command writes the tables and both figures to `output/supplemental/`. The second command optionally redraws the figures without refitting the LCA or regression. Outputs: `Figure_S1.png` / `.pdf` (scree plot) and `Figure_S2.png` / `.pdf` (conditional probabilities), with scree eigenvalues and settings in CSV/TXT. The plot command reads the private survey again for S1 and the aggregate conditional probabilities for S2. The 100-start optimization check can take several minutes. RStudio can run the tables and both figures with `source("PUS_Supplemental_Code/Supplemental_use_script.R")`. The supplemental functions share the canonical implementation in `R_scripts/Final_use_script.R`; the older same-named file in `PUS_Supplemental_Code/` forwards to it.
 
 ## Git and reproducibility
 
@@ -75,3 +75,7 @@ The complete workflow was verified with 1,017 survey records and 1,002 regressio
 ``` sh
 Rscript tests/smoke_input.R
 ```
+
+### Supplemental scree plot settings
+
+Figure S1 follows `psych::fa.parallel` for factor analysis (`fa="fa"`, minres, Pearson correlations, complete cases, Q7 item 4 excluded). The simulated and resampled curves use 20 iterations, seed 123, and one process for reproducibility. The plotted null curves are means, matching the supplied plot. The RNG state is restored after calculation. The default `nfactors=1` is used only for the scree calculation; the fitted manuscript model retains three factors. See `output/supplemental/Figure_S1_settings.txt` for the full settings and the package-reported factor recommendation. The ordinary component eigenvalues are also saved for a separate Kaiser criterion check. Because the original image did not specify its random seed, its simulated curves may differ slightly.
