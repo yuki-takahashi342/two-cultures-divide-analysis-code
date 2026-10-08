@@ -37,8 +37,6 @@ R packages are listed in `Final_use_script.R`; the plot additionally uses ggplot
 | S8 average marginal effects | S8_average_marginal_effects.csv |
 | S9 optimization check | S9_optimization.csv; S9_optimization_summary.csv; S9_AME_optimization_comparison.csv |
 
-The Word document contains these results and the questionnaire/coding descriptions. The analysis scripts generate numerical outputs; they do not automatically update the Word file.
-
 ## Reproduced results
 
 - Factor analysis and latent class analysis: N = 1,017.
@@ -47,13 +45,3 @@ The Word document contains these results and the questionnaire/coding descriptio
 - Additional five-class fit: seed 456, 100 starts, maximum 10,000 iterations. After label alignment, all 1,017 assignments and all 70 AMEs agree with the main result.
 - The five-class choice follows the manuscript. BIC is lowest at seven classes; AIC is lowest at eight. The additional check concerns optimization within five classes, not selection of the class count.
 - Regression SEs do not propagate uncertainty in estimated factor scores or assigned latent classes.
-
-## Author confirmations remaining in Word
-
-Nine yellow prompts cover fieldwork dates; provider, recruitment, quotas and incentives; invitations, response rate and provider checks; the instructed nonresponse item; information-module implementation; consent; Q7 item sources and factor rationale; data/code access; and references to add.
-
-The delivered records and data map indicate 7–9 October 2024, whereas the manuscript/questionnaire plan refers to September. Confirm the actual fieldwork dates before harmonizing the documents.
-
-The final code does not use Q7 item 4 to exclude cases. Its delivered values are 0 for 151 records and 1–7 for 866 records. Confirm the code meaning and intended screening procedure; no new exclusion rule has been imposed.
-
-Figure S1 uses the nine substantive Q7 items (item 4 excluded), `psych::fa.parallel(fa="fa", fm="minres", nfactors=1, n.iter=20, use="complete.obs", SMC=FALSE, sim=TRUE, quant=.95)`, seed 123 and one process. The displayed simulation/resampling curves are means. The seed is fixed for reproducibility and the caller RNG state is restored. `nfactors=1` is the default eigenvalue reduction for this diagnostic; it does not replace the three-factor EFA model. The source image did not record its seed, so the null curves may differ slightly.
